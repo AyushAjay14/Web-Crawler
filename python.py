@@ -8,7 +8,7 @@ def reqs(url):                   #takes the url and gets the response from the s
     soup = BeautifulSoup(resp, "lxml")
     #print(type(soup))
     return soup
-def all_links(t):          # scrapes all the a tags in the soup content
+def all_links(t):          # scrapes all the 'a' tags in the soup content
     paras = t.find_all('a')
     get_llinks = set()
     for anchors in paras:
