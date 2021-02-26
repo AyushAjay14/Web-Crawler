@@ -8,11 +8,11 @@ def reqs(url):                   #takes the url and gets the response from the s
     soup = BeautifulSoup(resp, "lxml")
     #print(type(soup))
     return soup
-def all_links(t):
+def all_links(t):          # scrapes all the a tags in the soup content
     paras = t.find_all('a')
     get_llinks = set()
     for anchors in paras:
-        get_llinks.add((anchors.get('href')))
+        get_llinks.add((anchors.get('href')))          #scrapes all the links with the 'href' tag
     return(get_llinks)
 def save_links(get_links):
     f = open("html.txt", "a+")
