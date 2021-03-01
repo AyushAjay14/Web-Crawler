@@ -8,11 +8,11 @@ def reqs(url):                   #takes the url and gets the response from the s
     soup = BeautifulSoup(resp, "lxml")
     #print(type(soup))
     return soup
-def all_links(t):          # scrapes all the 'a' tags in the soup content
+def all_links(t):                 # scrapes all the 'a' tags in the soup content
     paras = t.find_all('a')
     get_llinks = set()
     for anchors in paras:
-        get_llinks.add((anchors.get('href')))          #scrapes all the links with the 'href' tag
+        get_llinks.add((anchors.get('href')))       #scrapes all the links with the 'href' tag
     return(get_llinks)
 def save_links(get_links):
     f = open("html.txt", "a+")
@@ -46,6 +46,15 @@ def search_mails(ut):
         for i in result:
             print(i)
             e.write(i + '\n')
+def search_phone_no(ut):
+    res = requests.get(ut).text
+    numbers = set()
+    patt = re.compile(r'[\+\(]?[1-9][0-9 .\-\(\)]{8,}[0-9]')
+    phones = re.findall(patt, res)
+    for i in phones:
+        print(i)
+        numbers.add(i)
+    return (numbers)
 
 def take_ss(url):
     driver = webdriver.Chrome(executable_path='D:\chromedriver_win32\\chromedriver.exe')
@@ -66,7 +75,7 @@ if(t =="y"):
      take_ss(u)
 else:
     pass
-
+search_phone_no(u)
 
 
 
