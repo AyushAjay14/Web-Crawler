@@ -55,12 +55,24 @@ def search_phone_no(ut):
         print(i)
         numbers.add(i)
     return (numbers)
+def save_phone_no(phn):
+    with open("phone_no.txt", "a+") as ph:
+        for p in phn:
+            ph.write(p + '\n')
 
 def take_ss(url):
     driver = webdriver.Chrome(executable_path='D:\chromedriver_win32\\chromedriver.exe')
     driver.get(url)
     driver.get_screenshot_as_file('wiki.png')
     driver.close()
+def find_headers(url):
+    resp = requests.get(url)
+    heads = resp.headers
+    st = str(resp)
+    with open("head.txt", 'a+') as n:
+        for i in st:
+            n.write(i)
+        n.write('\n\n')
 
 
 u = input("Enter the URL : ")
@@ -76,6 +88,7 @@ if(t =="y"):
 else:
     pass
 search_phone_no(u)
+find_headers(u)
 
 
 
