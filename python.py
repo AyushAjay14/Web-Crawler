@@ -68,7 +68,7 @@ def take_ss(url):
 def find_headers(url):
     resp = requests.get(url)
     heads = resp.headers
-    st = str(resp)
+    st = str(heads)
     with open("head.txt", 'a+') as n:
         for i in st:
             n.write(i)
