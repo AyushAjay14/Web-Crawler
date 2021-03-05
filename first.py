@@ -12,13 +12,13 @@ def all_links(t):                 # scrapes all the 'a' tags in the soup content
     for anchors in paras:
         get_llinks.add((anchors.get('href')))       #scrapes all the links with the 'href' tag
     return(get_llinks)
-def find_imgs(t):
+def find_imgs(t):                 #scrapes all the image links from the website
     get_img = set()
     image = t.find_all('img')
     for img in image:
         get_img.add(img.get('src'))
     return(get_img)
-def search_mails(ut):
+def search_mails(ut):             #searches for all the mails 
     req = requests.get(ut).text
     email = re.compile(r"[a-zA-A0-9\.\-+_]+@[a-zA-A0-9\.\-+_]+.[a-zA-A0-9\.\-+_]+.[a-zA-A0-9\.\-+_]+.[a-zA-A0-9\.\-+_]")
     result = re.findall(email, req)

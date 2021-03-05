@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from selenium import webdriver
-def search_phone_no(ut):
+def search_phone_no(ut):                      #scrapes all the phone numbers
     res = requests.get(ut).text
     numbers = set()
     patt = re.compile(r'[\+\(]?[1-9][0-9 .\-\(\)]{8,}[0-9]')
@@ -11,12 +11,12 @@ def search_phone_no(ut):
         print(i)
         numbers.add(i)
     return (numbers)
-def take_ss(url):
+def take_ss(url):                              #function to take the screenshot 
     driver = webdriver.Chrome(executable_path='D:\chromedriver_win32\\chromedriver.exe')
     driver.get(url)
     driver.get_screenshot_as_file('wiki.png')
     driver.close()
-def find_headers(url):
+def find_headers(url):                         #scrapes all the http headers
      resp = requests.get(url)
      heads = resp.headers
      st = str(heads)
