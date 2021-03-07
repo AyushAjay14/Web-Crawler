@@ -30,7 +30,7 @@ def all_links(t):                 # scrapes all the 'a' tags in the soup content
         get_llinks.add((anchors.get('href')))       #scrapes all the links with the 'href' tag
     return(get_llinks)
 def save_links(get_links):
-    f = open("html.txt", "a+")
+    f = open("href_links.txt", "a+")
     for links in get_links:
         t = re.compile(r'/[a-zA-Z0-9./-_]')
         if(re.match(t, str(links))):
@@ -45,7 +45,7 @@ def find_imgs(t):
         get_img.add(img.get('src'))
     return(get_img)
 def save_imgs(get_imgs):
-    p = open("src.txt", "w+")
+    p = open("image_src_links.txt", "w+")
     for images in get_imgs:
         t = re.compile(r'/[a-zA-Z0-9./-_]')
         if(re.match(t,images)):
@@ -78,13 +78,13 @@ def save_phone_no(phn):
 def take_ss(url):
     driver = webdriver.Chrome(executable_path='D:\chromedriver_win32\\chromedriver.exe')
     driver.get(url)
-    driver.get_screenshot_as_file('wiki.png')
+    driver.get_screenshot_as_file('screenshot.png')
     driver.close()
 def find_headers(url):
     resp = requests.get(url)
     heads = resp.headers
     st = str(heads)
-    with open("head.txt", 'a+') as n:
+    with open("http_headers.txt", 'a+') as n:
         for i in st:
             n.write(i)
         n.write('\n\n')
