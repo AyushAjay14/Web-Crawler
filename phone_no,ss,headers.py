@@ -20,7 +20,7 @@ def find_headers(url):                         #scrapes all the http headers
      resp = requests.get(url)
      heads = resp.headers
      st = str(heads)
-     with open("head.txt", 'a+') as n:
+     with open("http_headers.txt", 'a+') as n:
          for i in st:
              n.write(i)
          n.write('\n\n')

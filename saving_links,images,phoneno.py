@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import second
 def save_links(get_links , u):                    # saves all the links in text file
-    f = open("html.txt", "a+")
+    f = open("href_links.txt", "a+")
     for links in get_links:
         t = re.compile(r'/[a-zA-Z0-9./-_]')
         if ( re.match(t, links)):
@@ -11,7 +11,7 @@ def save_links(get_links , u):                    # saves all the links in text 
         else:
             f.write( links + "\n")
 def save_imgs(get_imgs , u):                      #saves all the img links found from the find_imgs function
-    p = open("src.txt", "w+")
+    p = open("image_src_links.txt", "w+")
     for images in get_imgs:
         t = re.compile(r'/[a-zA-Z0-9./-_]')
         if(re.match(t,images)):
