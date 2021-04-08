@@ -4,6 +4,7 @@ import re
 from selenium import webdriver
 import os
 import shutil
+import argparse
 def create_and_change_dir():
     dir = os.getcwd()
     path = os.path.join(dir,'crawleroutput')
@@ -35,7 +36,7 @@ def all_links(t):                 # scrapes all the 'a' tags in the soup content
         pass
 def save_links(get_links):
     try:
-        f = open("href_links.txt", "a+")
+        f = open("href_links.txt", "w+")
         for links in get_links:
             t = re.compile(r'/[a-zA-Z0-9./-_]')
             if(re.match(t, str(links))):
@@ -56,7 +57,7 @@ def find_imgs(t):
         pass
 def save_imgs(get_imgs):
     try:
-        p = open("image_src_links.txt", "w+")
+        p = open("image_src_links.txt", "a+")
         for images in get_imgs:
             t = re.compile(r'/[a-zA-Z0-9./-_]')
             if(re.match(t,images)):
@@ -71,7 +72,7 @@ def search_mails(ut):
         req = requests.get(ut).text
         email = re.compile(r"[a-zA-A0-9\.\-+_]+@[a-zA-A0-9\.\-+_]+.[a-zA-A0-9\.\-+_]+.[a-zA-A0-9\.\-+_]+.[a-zA-A0-9\.\-+_]")
         result = re.findall(email, req)
-        with open('emails.txt', "w+") as e:
+        with open('emails.txt', "a+") as e:
             for i in result:
                 #print(i)
                 e.write(i + '\n')
@@ -91,7 +92,7 @@ def search_phone_no(ut):
         pass
 def save_phone_no(phn):
     try:
-        with open("phone_no.txt", "w+") as ph:
+        with open("phone_no.txt", "a+") as ph:
             for p in phn:
                 ph.write(p + '\n')
     except:
@@ -131,22 +132,22 @@ def open_links(depth, args):
             l = queue.pop(0)
             #print(l)
             t = reqs(l)
-            print("Finding links")
+            #print("Finding links")
             get_links1 = all_links(t)
             save_links(get_links1)
             if(args.imagelinks==1):
-                print("finding imagelinks")
+                #print("finding imagelinks")
                 get_img1 = find_imgs(t)
                 save_imgs(get_img1)
             if(args.emails==1):
-                print("finding mails")
+                #print("finding mails")
                 search_mails(l)
             if(args.phoneno==1):
-                print("finding phoneno")
+                #print("finding phoneno")
                 nu =search_phone_no(l)
                 save_phone_no(nu)
             if(args.headers==1):
-                print("finding headers")
+                #print("finding headers")
                 find_headers(l)
             crawled.add(l)
         with open("crawled_links.txt", "a+") as crawled_links:
@@ -179,12 +180,13 @@ if(t =="y"):
      take_ss(u)
 else:
     pass
+print("==>> web crawling has succesfully started")
 if(args.phoneno==1):
     nu =search_phone_no(u)
     save_phone_no(nu)
 if(args.headers==1):
     find_headers(u)
-if(depth==1):
+if(dep==1):
     print("web crawing is completed")
 else:
     open_links(dep, args)
