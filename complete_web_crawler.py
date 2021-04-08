@@ -19,10 +19,11 @@ def reqs(url):
     try:
         resp = requests.get(url, headers = headers_dict).text
         soup = BeautifulSoup(resp, "lxml")
+        return soup
     except:
         pass
     #print(type(soup))
-    return soup
+
 def all_links(t):                 # scrapes all the 'a' tags in the soup content
     try:
         paras = t.find_all('a')
@@ -115,47 +116,79 @@ def find_headers(url):
             n.write('\n\n')
     except:
         pass
-def open_links(depth):
-    r = open("href_links.txt", 'rt')
+def open_links(depth, args):
     d = int(0)
-    t = r.readlines()
-    while (d < depth):
+    while(d < depth):
+        r = open("href_links.txt", 'rt')
+        t = r.readlines()
+        #print(t)
+        queue = []
+        crawled = set()
         for i in t:
-            try:
-                line = i.strip('\n')
-                ta = reqs(line)
-                s = all_links(ta)
-                save_links(s)
-                get_img1 = find_imgs(ta)
+            line = i.strip('\n')
+            queue.append(line)
+        for i in range(len(queue)):
+            l = queue.pop(0)
+            #print(l)
+            t = reqs(l)
+            print("Finding links")
+            get_links1 = all_links(t)
+            save_links(get_links1)
+            if(args.imagelinks==1):
+                print("finding imagelinks")
+                get_img1 = find_imgs(t)
                 save_imgs(get_img1)
-                search_mails(i)
-                nu = search_phone_no(i)
+            if(args.emails==1):
+                print("finding mails")
+                search_mails(l)
+            if(args.phoneno==1):
+                print("finding phoneno")
+                nu =search_phone_no(l)
                 save_phone_no(nu)
-                find_headers(i)
-            except:
-                pass
-        print("depth reached:" , d+1)
-        d+=1
-    r.close()
+            if(args.headers==1):
+                print("finding headers")
+                find_headers(l)
+            crawled.add(l)
+        with open("crawled_links.txt", "a+") as crawled_links:
+            for p in crawled:
+                crawled_links.write(p + "\n")
+        d = d + 1
+        print("Reached depth : " + str(d))
+        r.close()
 create_and_change_dir()
-u = input("Enter the URL : ")
-dep = int(input("enter the depth : "))
+parser = argparse.ArgumentParser()
+parser.add_argument("--url", help="add the url ")
+parser.add_argument("--depth",type= int,  help="add the depth which you want to specify")
+parser.add_argument("--headers",default= 1,  help="to extract all the headers from the website")
+parser.add_argument("--phoneno",default= 1,  help="to extract all the phone numbers")
+parser.add_argument("--imagelinks",default= 1,  help="to extract all the image links from the website")
+parser.add_argument("--emails",default= 1,  help="to extract all the emails from the website")
+args = parser.parse_args()
+u = args.url
+dep = args.depth
 t = reqs(u)
 get_links1 = all_links(t)
 save_links(get_links1)
-get_img1 = find_imgs(t)
-save_imgs(get_img1)
-search_mails(u)
+if(args.imagelinks==1):
+    get_img1 = find_imgs(t)
+    save_imgs(get_img1)
+if(args.emails==1):
+    search_mails(u)
 t = input('DO you want to take screenshots(y/n) ?')
 if(t =="y"):
      take_ss(u)
 else:
     pass
-nu =search_phone_no(u)
-save_phone_no(nu)
-find_headers(u)
-open_links(dep)
-
+if(args.phoneno==1):
+    nu =search_phone_no(u)
+    save_phone_no(nu)
+if(args.headers==1):
+    find_headers(u)
+if(depth==1):
+    print("web crawing is completed")
+else:
+    open_links(dep, args)
+print("web crawing is completed")
 
 
 
