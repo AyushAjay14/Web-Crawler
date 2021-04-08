@@ -14,13 +14,13 @@ This is my project which can crawl a given url or domain and collect the desired
 4. [ARGPARSE](https://pypi.org/project/argparse/)
 5. [REGEX](https://pypi.org/project/regex/)
 ## USAGE :
-==>>   python complete_web_crawler.py --url  --depth  --emails --headers --phoneno --imagelinks 
---url <provide the desired URL>  --depth <provide the required depth>
---emails <if 1 is supplied then crawler will search for mails also and for 0 it will skip email scrapping >
---headers <if 1 is supplied then crawler will search for headers also and for 0 it will skip >
---phoneno <if 1 is supplied then crawler will search for phone numbers also and for 0 it will skip>
---imagelinks <if 1 is supplied then crawler will search for image links also and for 0 it will skip>
-** By default if any of the options is not provided then the option will be set to 1 
+####  ==>>   python complete_web_crawler.py --url  --depth  --emails --headers --phoneno --imagelinks 
+* --url <provide the desired URL >  --depth <provide the required depth>
+* --emails <if 1 is supplied then crawler will search for mails also and for 0 it will skip email scrapping >
+* --headers <if 1 is supplied then crawler will search for headers also and for 0 it will skip >
+* --phoneno <if 1 is supplied then crawler will search for phone numbers also and for 0 it will skip>
+* --imagelinks <if 1 is supplied then crawler will search for image links also and for 0 it will skip>
+* ** By default if any of the options is not provided then the option will be set to 1 
 ### EXAMPLE :
-python complete_web_crawler.py --url https://ctftime.org --depth 1 --headers 1 --phoneno 1 --imagelinks 0
+* python complete_web_crawler.py --url https://ctftime.org --depth 1 --headers 1 --phoneno 1 --imagelinks 0
 
