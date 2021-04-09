@@ -30,10 +30,10 @@ This is my project which can crawl a given url or domain and collect the desired
 ## SCREENSHOT :
 * *** In order to make screenshot function work properly you need to install google chrome in your virtual machine
 * Commands are:
-###### wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-###### sudo apt install ./google-chrome-stable_current_amd64.deb
-###### Ensure it worked:
-###### google-chrome --version
+######         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+######         sudo apt install ./google-chrome-stable_current_amd64.deb
+######         Ensure it worked:
+######        google-chrome --version
 ## SNIPPETS :
 ![snippet1](snippet1.png)
 ![snippet2](snippet2.png)
