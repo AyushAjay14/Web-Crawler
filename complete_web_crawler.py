@@ -5,6 +5,9 @@ from selenium import webdriver
 import os
 import shutil
 import argparse
+import random
+from webdriver_manager.chrome import ChromeDriverManager
+from colorama import Fore, Back, Style
 def create_and_change_dir():
     dir = os.getcwd()
     path = os.path.join(dir,'crawleroutput')
@@ -100,10 +103,11 @@ def save_phone_no(phn):
 
 def take_ss(url):
     try:
-        driver = webdriver.Chrome(executable_path='D:\chromedriver_win32\\chromedriver.exe')
-        driver.get(url)
-        driver.get_screenshot_as_file('screenshot.png')
-        driver.close()
+        browser = webdriver.Chrome(ChromeDriverManager().install())
+        #driver = webdriver.Chrome(executable_path='E:\\chromedriver_win32\\chromedriver.exe')
+        browser.get(url)
+        browser.get_screenshot_as_file('screenshot' + str(random.randint(1,1000)) + '.png')
+        browser.close()
     except:
         pass
 def find_headers(url):
@@ -132,23 +136,35 @@ def open_links(depth, args):
             l = queue.pop(0)
             #print(l)
             t = reqs(l)
-            #print("Finding links")
+            #print("==>> Finding links")
             get_links1 = all_links(t)
             save_links(get_links1)
             if(args.imagelinks==1):
-                #print("finding imagelinks")
+                #print("==>> finding imagelinks")
                 get_img1 = find_imgs(t)
                 save_imgs(get_img1)
             if(args.emails==1):
-                #print("finding mails")
+                #print("==>> finding mails")
                 search_mails(l)
             if(args.phoneno==1):
-                #print("finding phoneno")
+                #print("==>> finding phoneno")
                 nu =search_phone_no(l)
                 save_phone_no(nu)
             if(args.headers==1):
-                #print("finding headers")
+                #print("==>> finding headers")
                 find_headers(l)
+            if("contact" in str(u)):
+                take_ss(u)
+            elif("admin" in u):
+                take_ss(u)
+            elif("web-admin" in u):
+                take_ss(u)
+            elif("backup" in u):
+                take_ss(u)
+            elif("login" in u):
+                take_ss(u)
+            else:
+                pass
             crawled.add(l)
         with open("crawled_links.txt", "a+") as crawled_links:
             for p in crawled:
@@ -175,12 +191,21 @@ if(args.imagelinks==1):
     save_imgs(get_img1)
 if(args.emails==1):
     search_mails(u)
-t = input('DO you want to take screenshots(y/n) ?')
-if(t =="y"):
-     take_ss(u)
-else:
-    pass
-print("==>> web crawling has succesfully started")
+t = input(Fore.MAGENTA + 'DO you want to take screenshots(y/n) ?')
+if(t =="y" ):
+    if("contact" in str(u)):
+        take_ss(u)
+    elif("admin" in u):
+        take_ss(u)
+    elif("web-admin" in u):
+        take_ss(u)
+    elif("backup" in u):
+        take_ss(u)
+    elif("login" in u):
+        take_ss(u)
+    else:
+        pass
+print(Fore.RED + '==>>', Fore.CYAN + 'web crawling has succesfully started' )
 if(args.phoneno==1):
     nu =search_phone_no(u)
     save_phone_no(nu)
@@ -190,7 +215,7 @@ if(dep==1):
     print("web crawing is completed")
 else:
     open_links(dep, args)
-print("web crawing is completed")
+    print("web crawing is completed")
 
 
 
