@@ -105,8 +105,10 @@ def take_ss(url):
     try:
         browser = webdriver.Chrome(ChromeDriverManager().install())
         #driver = webdriver.Chrome(executable_path='E:\\chromedriver_win32\\chromedriver.exe')
+        print("TAKING SCREENSHOT OF: " + url)
         browser.get(url)
         browser.get_screenshot_as_file('screenshot' + str(random.randint(1,1000)) + '.png')
+
         browser.close()
     except:
         pass
@@ -121,19 +123,33 @@ def find_headers(url):
             n.write('\n\n')
     except:
         pass
-def open_links(depth, args):
+def open_links(depth, args, t):
     d = int(0)
     while(d < depth):
         r = open("href_links.txt", 'rt')
         t = r.readlines()
         #print(t)
-        queue = []
+        queue = set()
         crawled = set()
         for i in t:
             line = i.strip('\n')
-            queue.append(line)
+            queue.add(line)
         for i in range(len(queue)):
-            l = queue.pop(0)
+            l = queue.pop()
+            if(t == "y"):
+                if("contact" in l):
+                    take_ss(l)
+                elif("admin" in l):
+                    take_ss(l)
+                elif("web-admin" in l):
+                    take_ss(l)
+                elif("backup" in l):
+                    take_ss(l)
+                elif("login" in l):
+                    #print("hi")
+                    take_ss(l)
+                else:
+                    pass
             #print(l)
             t = reqs(l)
             #print("==>> Finding links")
@@ -153,18 +169,7 @@ def open_links(depth, args):
             if(args.headers==1):
                 #print("==>> finding headers")
                 find_headers(l)
-            if("contact" in str(u)):
-                take_ss(u)
-            elif("admin" in u):
-                take_ss(u)
-            elif("web-admin" in u):
-                take_ss(u)
-            elif("backup" in u):
-                take_ss(u)
-            elif("login" in u):
-                take_ss(u)
-            else:
-                pass
+
             crawled.add(l)
         with open("crawled_links.txt", "a+") as crawled_links:
             for p in crawled:
@@ -191,7 +196,7 @@ if(args.imagelinks==1):
     save_imgs(get_img1)
 if(args.emails==1):
     search_mails(u)
-t = input(Fore.MAGENTA + 'DO you want to take screenshots(y/n) ?')
+t = input(Fore.RED + 'DO you want to take screenshots(y/n) ?')
 if(t =="y" ):
     if("contact" in str(u)):
         take_ss(u)
@@ -212,10 +217,10 @@ if(args.phoneno==1):
 if(args.headers==1):
     find_headers(u)
 if(dep==1):
-    print("web crawing is completed")
+    print(Fore.RED + '==>>' + Fore.CYAN + "web crawing is completed")
 else:
-    open_links(dep, args)
-    print("web crawing is completed")
+    open_links(dep, args, t)
+    print(Fore.RED + '==>>' + Fore.CYAN + "web crawing is completed")
 
 
 
