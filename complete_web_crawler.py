@@ -101,15 +101,15 @@ def save_phone_no(phn):
     except:
         pass
 
-def take_ss(url):
+def take_ss(url, browser):
     try:
-        browser = webdriver.Chrome(ChromeDriverManager().install())
+
         #driver = webdriver.Chrome(executable_path='E:\\chromedriver_win32\\chromedriver.exe')
         print("TAKING SCREENSHOT OF: " + url)
         browser.get(url)
         browser.get_screenshot_as_file('screenshot' + str(random.randint(1,1000)) + '.png')
 
-        browser.close()
+
     except:
         pass
 def find_headers(url):
@@ -138,16 +138,16 @@ def open_links(depth, args, argument):
             l = queue.pop()
             if(argument == "y"):
                 if("contact" in l):
-                    take_ss(l)
+                    take_ss(l, browser)
                 elif("admin" in l):
-                    take_ss(l)
+                    take_ss(l, browser)
                 elif("web-admin" in l):
-                    take_ss(l)
+                    take_ss(l, browser)
                 elif("backup" in l):
-                    take_ss(l)
+                    take_ss(l, browser)
                 elif("login" in l):
                     #print("hi")
-                    take_ss(l)
+                    take_ss(l, browser)
                 else:
                     pass
             #print(l)
@@ -178,6 +178,7 @@ def open_links(depth, args, argument):
         print("Reached depth : " + str(d))
         r.close()
 create_and_change_dir()
+browser = webdriver.Chrome(ChromeDriverManager().install())
 parser = argparse.ArgumentParser()
 parser.add_argument("--url", help="add the url ")
 parser.add_argument("--depth",type= int,  help="add the depth which you want to specify")
@@ -199,15 +200,15 @@ if(args.emails==1):
 argument = input(Fore.RED + 'DO you want to take screenshots(y/n) ?')
 if(argument =="y" ):
     if("contact" in str(u)):
-        take_ss(u)
+        take_ss(u, browser)
     elif("admin" in u):
-        take_ss(u)
+        take_ss(u, browser)
     elif("web-admin" in u):
-        take_ss(u)
+        take_ss(u, browser)
     elif("backup" in u):
-        take_ss(u)
+        take_ss(u, browser)
     elif("login" in u):
-        take_ss(u)
+        take_ss(u, browser)
     else:
         pass
 print(Fore.RED + '==>>', Fore.CYAN + 'web crawling has succesfully started' )
@@ -221,7 +222,7 @@ if(dep==1):
 else:
     open_links(dep, args, argument)
     print(Fore.RED + '==>>' + Fore.CYAN + "web crawing is completed")
-
+browser.close()
 
 
 #print(paras)
