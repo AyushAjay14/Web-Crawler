@@ -36,8 +36,8 @@ This is my project which can crawl a given url or domain and collect the desired
 ######         google-chrome --version
 ## ERRORS :
 * If you are using wsl2 and getting the following error - 
-    <mark style="background-color: lightblue">  [19615:19615:0219/152933.751028:ERROR:browser_main_loop.cc(1512)] Unable to open X display. </mark>
-     Then follow the methods given here - https://www.gregbrisebois.com/posts/chromedriver-in-wsl2/
+![error](error.png)
+``` Then follow the methods given here - https://www.gregbrisebois.com/posts/chromedriver-in-wsl2/```
 ## SNIPPETS :
 ![snippet1](snippet1.png)
 ![snippet2](snippet2.png)
