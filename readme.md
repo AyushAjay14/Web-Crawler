@@ -17,6 +17,8 @@ This is my project which can crawl a given url or domain and collect the desired
 7. [WEBDRIVER-MANAGER](https://pypi.org/project/webdriver-manager/)
 8. [COLORAMA](https://pypi.org/project/colorama/)
 ## USAGE :
+####  git clone https://github.com/AyushAjay14/Web-Crawler.git 
+####  cd Web-Crawler
 ####  ==>>   python complete_web_crawler.py --url  --depth  --emails --headers --phoneno --imagelinks 
 * --url ```<provide the desired URL >``` 
 * --depth ```<provide the required depth>```
