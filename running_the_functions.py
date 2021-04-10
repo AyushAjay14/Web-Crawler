@@ -23,8 +23,8 @@ if(args.imagelinks==1):
     saving_links_images_phoneno.save_imgs(get_img1, u)
 if(args.emails==1):
     links_images_emails.search_mails(u)
-t = input(Fore.RED + 'DO you want to take screenshots(y/n) ?')
-if(t =="y" ):
+argument = input(Fore.RED + 'DO you want to take screenshots(y/n) ?')
+if(argument =="y" ):
     if("contact" in str(u)):
         phone_no_ss_headers.take_ss(u)
     elif("admin" in u):
@@ -46,7 +46,7 @@ if(args.headers==1):
 if(dep==1):
     print(Fore.RED + '==>>' + Fore.CYAN + "web crawing is completed")
 else:
-    depth_function.open_links(dep, args, t)
+    depth_function.open_links(dep, args, argument)
     print(Fore.RED + '==>>' + Fore.CYAN + "web crawing is completed")
 
 

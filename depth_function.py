@@ -2,7 +2,7 @@ import phone_no_ss_headers
 import links_images_emails
 import saving_links_images_phoneno
 
-def open_links(depth, args, t):
+def open_links(depth, args, argument):
     d = int(0)
     while(d < depth):
         r = open("href_links.txt", 'rt')
@@ -15,7 +15,7 @@ def open_links(depth, args, t):
             queue.add(line)
         for i in range(len(queue)):
             l = queue.pop()
-            if(t == "y"):
+            if(argument == "y"):
                 if("contact" in l):
                     phone_no_ss_headers.take_ss(l)
                 elif("admin" in l):

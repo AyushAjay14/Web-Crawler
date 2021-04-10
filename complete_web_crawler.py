@@ -123,7 +123,7 @@ def find_headers(url):
             n.write('\n\n')
     except:
         pass
-def open_links(depth, args, t):
+def open_links(depth, args, argument):
     d = int(0)
     while(d < depth):
         r = open("href_links.txt", 'rt')
@@ -136,7 +136,7 @@ def open_links(depth, args, t):
             queue.add(line)
         for i in range(len(queue)):
             l = queue.pop()
-            if(t == "y"):
+            if(argument == "y"):
                 if("contact" in l):
                     take_ss(l)
                 elif("admin" in l):
@@ -196,8 +196,8 @@ if(args.imagelinks==1):
     save_imgs(get_img1)
 if(args.emails==1):
     search_mails(u)
-t = input(Fore.RED + 'DO you want to take screenshots(y/n) ?')
-if(t =="y" ):
+argument = input(Fore.RED + 'DO you want to take screenshots(y/n) ?')
+if(argument =="y" ):
     if("contact" in str(u)):
         take_ss(u)
     elif("admin" in u):
@@ -219,7 +219,7 @@ if(args.headers==1):
 if(dep==1):
     print(Fore.RED + '==>>' + Fore.CYAN + "web crawing is completed")
 else:
-    open_links(dep, args, t)
+    open_links(dep, args, argument)
     print(Fore.RED + '==>>' + Fore.CYAN + "web crawing is completed")
 
 
